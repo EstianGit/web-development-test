@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://kit.fontawesome.com/2305f51956.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="header">
+        <button type="submit" class="login-signup" id="login-signup">Login / Sign Up</button>
+        <p class="welcome-user" id="welcome-user"></p>
+        <button type="submit" class="logout" id="logout">Logout</button>
+        <div class="title-container">
+            <h1 class="page-title"><i class="fa-solid fa-shop"></i> Mingle Mart <i class="fa-solid fa-shop"></i></h1>
+        </div>
+        <i class="fa-solid fa-cart-shopping" id="cart"><span id="item-count" class="item-count">0</span></i>
+    </div>
+    <hr>
+    <button type="button" class="add-product-btn">Add Product</button>
+
+    <!-- CART MODAL -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-xmark" id="cart-close-icon"
+                style="font-size: 30px; float: right; padding-right: 5px; padding-top: 5px; cursor: pointer;"></i>
+            <div class="cart-header" id="cart-header">
+                <span class="cart-header-txt">Your Cart:</span>
+            </div>
+            <table id="cartTableId" class="cart-table"></table>
+            <div class="empty-cart-container" id="empty-cart">
+                <span class="empty-cart-txt">Your cart is empty...</span><br>
+                <span class="empty-cart-icon"><i class="fa-regular fa-face-frown"></i></span>
+            </div>
+            <div class="total-and-checkout"><div id="total" class="total">Total: <span id="total-amount"></span></div>
+            <div id="checkout"></div>
+                <!-- <button type="submit" class="checkout-btn">Go To Checkout</button> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="login-modal">
+        <div class="login-modal-content">
+            <i class="fa-solid fa-xmark" id="login-close-icon"
+                style="font-size: 30px; float: right; padding-right: 5px; padding-top: 5px; cursor: pointer;"></i>
+            <div class="login-header" id="login-header">
+                <span class="login-header-txt">Login</span>
+                <form id="login-form" enctype="multipart/form-data" action="http://localhost/web_development_test/login.php" method="post">
+                    <label for="username" class="username-txt">Username</label><br>
+                    <input type="text" name="username" id="username" required><br><br>
+
+                    <label for="password" class="password-txt">Password</label><br>
+                    <input type="password" name="password" id="password" required><br><br>
+
+                    <button type="submit" id="login-btn" class="login-btn">LOGIN</button>
+                </form>
+                <p class="dont-have-account">Don't have an account? <span id="sign-up-span" class="sign-up-span">Sign Up!</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SIGNUP MODAL -->
+    <div id="signup-modal" class="signup-modal">
+        <div class="signup-modal-content">
+            <i class="fa-solid fa-xmark" id="signup-close-icon"
+                style="font-size: 30px; float: right; padding-right: 5px; padding-top: 5px; cursor: pointer;"></i>
+            <div class="signup-header" id="signup-header">
+                <span class="signup-header-txt">Sign up</span>
+                <form id="signup-form" enctype="multipart/form-data">
+                    <label for="username" class="username-txt">First Name</label><br>
+                    <input type="text" name="username" id="first-name" required><br><br>
+
+                    <label for="username" class="username-txt">Last Name</label><br>
+                    <input type="text" name="username" id="last-name" required><br><br>
+
+                    <label for="username" class="username-txt">Email address</label><br>
+                    <input type="email" name="username" id="email-address" required><br><br>
+
+                    <label for="username" class="signup-username-txt">Username</label><br>
+                    <input type="text" name="username" id="signup-username" required><br><br>
+
+                    <label for="password" class="signup-password-txt">Password</label><br>
+                    <input type="password" name="password" id="signup-password" required><br><br>
+
+                    <button type="submit" id="signup-btn" class="signup-btn">SIGN UP</button>
+                </form>
+                <p class="already-have-account">Already have an account? <span id="login-span" class="login-span">Log in!</span></p>
+            </div>
+        </div>
+    </div>
+
+    <form id="product-form" enctype="multipart/form-data">
+        <label for="product-name">Product Name:</label>
+        <input type="text" name="product-name" id="product-name"><br><br>
+
+        <label for="product-description">Product Description:</label>
+        <input type="text" name="product-description" id="product-description"><br><br>
+
+        <label for="product-price">Product Price:</label>
+        <input type="number" name="product-price" id="product-price"><br><br>
+
+        <label for="product-img">Product Image:</label>
+        <input type="file" name="product-img" id="product-img" accept="image/*"><br><br>
+
+        <button type="submit" id="submit-btn">Submit</button>
+    </form>
+    <img src="#" alt="" id="preview" style="display: none;">
+    <table id="tableID" class="table-display"></table>
+
+    <form id="edit-form" enctype="multipart/form-data">
+        <i class="fa-solid fa-xmark" id="edit-close-icon"
+            style="font-size: 30px; float: right; padding-right: 5px; padding-top: 5px; cursor: pointer;"></i>
+        <label for="edit-product-name">Name:</label><br>
+        <input type="text" name="edit-product-name" id="edit-product-name"><br><br>
+
+        <label for="edit-product-description">Description:</label><br>
+        <input type="text" name="edit-product-description" id="edit-product-description"><br><br>
+
+        <label for="edit-product-price">Price:</label><br>
+        <input type="text" name="edit-product-price" id="edit-product-price"><br><br>
+
+        <label for="edit-product-img">Image:</label><br>
+        <input type="file" name="edit-product-img" id="edit-product-img"><br><br>
+
+        <button type="submit" id="edit-product-btn">Submit</button>
+    </form>
+    <!-- SNACKBAR CODE -->
+    <div id="snackbar">Item successfully added</div>
+</body>
+<script type="text/javascript" src="js/main.js"></script>
+
+</html>
